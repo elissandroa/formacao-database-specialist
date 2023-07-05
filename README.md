@@ -1,4 +1,5 @@
 # Curso DIO - Formação Database Specialist
+## Professora: *Juliana Mascarenhas*
 ## Pré - Requisitos
 * Lógica e Pensamento Computacional
 * Noções de arquitetura de computadores
