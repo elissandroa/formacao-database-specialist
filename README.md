@@ -1,4 +1,10 @@
-# Curso DIO - Formação Database Specialist
+<h1>
+    <a href="https://www.dio.me/">
+     <img align="center" width="40px" src="https://hermes.digitalinnovation.one/assets/diome/logo-minimized.png"></a>
+    <span> Curso DIO - Formação Database Specialist</span>
+</h1>  
+
+
 ## Professora: *Juliana Mascarenhas*
 ## Pré - Requisitos
 * Lógica e Pensamento Computacional
