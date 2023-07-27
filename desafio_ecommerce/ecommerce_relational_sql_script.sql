@@ -5,16 +5,17 @@ create database if not exists ecommerce;
 use ecommerce;
 
 -- criar tabela cliente
+
 create table clients(
 	idClient int primary key auto_increment,
-    Fname varchar(15),
-    Minit char(3),
-    Lname varchar(20),
-    CPF char(11) not null,
-    Address varchar(255) not null,
-    Phone varchar(20)not null,
-    constraint unique_cpf_client unique (CPF)
+    Fname varchar(30) not null,
+	Minit varchar(3),
+	Lname varchar(20),
+	Address varchar(255) not null,
+    Phone varchar(20)not null
 );
+
+
 
 alter table clients auto_increment=1;
 
@@ -135,5 +136,37 @@ create table payment(
     constraint fk_Payment_order foreign key (idOorder) references orders(idOrder),
     constraint fk_payment_client foreign key (idClient) references clients(idClient)
 );
+
+-- drop table client_cpf;
+create table client_cpf (
+   Cpf char(11) not null,
+   Birth_Date Date,
+   client_cpf_idClient int primary key,
+   constraint unique_client_cpf unique(Cpf),
+   constraint fk_client_cpf_clients foreign key (client_cpf_idClient) references clients (idClient))
+;
+
+alter table client_cpf auto_increment=1;
+
+create table client_cnpj (
+  cnpj char(18) not null,
+  client_cnpj_idClient int primary key,
+  Contact varchar(45),
+  constraint unique_client_cnpj unique(cnpj),
+  constraint fk_client_cnpj_clients foreign key (client_cnpj_idClient) references clients (idClient))
+;   
+
+alter table client_cnpj auto_increment=1;
+
+create table Delivery(
+	idDelivery int auto_increment primary key,
+    Delivery_data Date not null,
+    DStatus enum('Shipped','not_delivered','delivered'),
+    Tracking_code varchar(20),
+    idDlOrder int,
+    constraint fk_delivery_order foreign key (idDlOrder) references Orders(idOrder)
+);
+ 
+alter table Delivery auto_increment=1; 
 
 show tables;

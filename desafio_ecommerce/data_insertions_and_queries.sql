@@ -1,14 +1,26 @@
 -- inserção de dados e queries
 use ecommerce;
 
+
+-- 
+
 -- idClient, Fname, Minit, Lname, CPF, Address
-insert into Clients (Fname, Minit, Lname, CPF, Address, Phone) 
-	   values('Maria','M','Silva', 12346789, 'rua silva de prata 29, Carangola - Cidade das flores', '41-9876-9876'),
-		     ('Matheus','O','Pimentel', 987654321,'rua alemeda 289, Centro - Cidade das flores','42-8765-8907'),
-			 ('Ricardo','F','Silva', 45678913,'avenida alemeda vinha 1009, Centro - Cidade das flores','41-7897-1243'),
-			 ('Julia','S','França', 789123456,'rua lareijras 861, Centro - Cidade das flores','44-8975-2190'),
-			 ('Roberta','G','Assis', 98745631,'avenidade koller 19, Centro - Cidade das flores','21-8901-7865'),
-			 ('Isabela','M','Cruz', 654789123,'rua alemeda das flores 28, Centro - Cidade das flores','11-7896-1429');
+insert into Clients (Fname, Minit, Lname, Address, Phone) 
+	   values('Maria','M','Silva','rua silva de prata 29, Carangola - Cidade das flores', '41-9876-9876'),
+		     ('Loja','São','Matheus','rua alemeda 289, Centro - Cidade das flores','42-8765-8907'),
+			 ('Ricardo','F','Silva','avenida alemeda vinha 1009, Centro - Cidade das flores','41-7897-1243'),
+			 ('Construtora','J','Camargo','rua lareijras 861, Centro - Cidade das flores','44-8975-2190'),
+			 ('Roberta','G','Assis','avenidade koller 19, Centro - Cidade das flores','21-8901-7865'),
+			 ('Casa','do','Computador','rua alemeda das flores 28, Centro - Cidade das flores','11-7896-1429');
+
+insert into client_cpf(cpf, birth_Date, client_cpf_idClient) values ('54895462159','1981-04-12',1),
+																	('35468795412','1970-06-21',3),
+                                                                    ('65489745312','1998-10-18',5);
+
+insert into client_cnpj(cnpj, contact, client_cnpj_idClient) values ('75.845.456/0001-25','João Ricarco',2),
+																	('65.345.198/0001-23','Silvio Brito',4),
+                                                                    ('45.439.193/0001-19','Carlos Pereira',6);                                                                    
+                                                                 
 
 
 -- idProduct, Pname, classification_kids boolean, category('Eletrônico','Vestimenta','Brinquedos','Alimentos','Móveis'), avaliação, size
@@ -84,6 +96,13 @@ insert into productSeller (idPseller, idPproduct, prodQuantity) values
 
 insert into payment (idClient, typePayment,idOorder,paymentStatus, payValue) values   (1,'PIX',1,'Paid',438.81),
 																			(2,'Cartão de Crédito',2,'Pending',425.20);
+
+
+insert into Delivery (Delivery_data,DStatus,Tracking_code,idDlOrder) values (now(),'Shipped','FKS459-33',1),
+																			(now(),'not_delivered','FKX398-11',2);
+                                                                            
+select * from Delivery;                                                                            
+
                                                                         
 select * from orders;
 
@@ -91,7 +110,7 @@ select * from orders;
 
 
 -- Lista dos clientes por Ordem alfabética
-select concat(Fname,' ',Minit,'. ',Lname) as 'Name', cpf, Address from clients order by Fname asc;
+select concat(Fname,' ',Minit,'. ',Lname) as 'Name', Address from clients order by Fname asc;
 
 -- Lista de Fornecedores 
 select * from supplier;
@@ -172,5 +191,22 @@ select concat(storageLocation,' - ',location) as 'Local', Pname as Product, quan
 select concat(Fname,' ',Lname) as 'Client', idOorder as 'Order',payValue as 'Value', paymentStatus as 'Status' from payment p, clients c 
 	where p.idClient = c.idClient;
 
+-- Relação de Clientes Pessoa Física
 
+select concat(Fname,' ',Minit,'. ',Lname) as 'Name', Birth_Date, Cpf, Phone, Address  from client_cpf
+	inner join clients
+    on idClient = client_cpf_idClient;
     
+-- Relação de Clientes Pessoa Jurídica
+
+select concat(Fname,' ',Minit,' ',Lname) as Company, cnpj, Contact, Phone, Address from client_cnpj
+inner join clients
+on idClient = client_cnpj_idClient;    
+    
+-- Relação de Entregas
+
+select Fname as 'Client', Phone, Address, Delivery_data as 'Delivery date', Tracking_code, DStatus as 'Status'  from Delivery
+	inner join orders
+    on idDlOrder = idOrder
+    inner join clients
+    on idOrder = idClient;
