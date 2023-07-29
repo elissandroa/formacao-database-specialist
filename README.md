@@ -19,3 +19,9 @@
 * Criar consultas SQL
 * Separar cliente Pessoa Jurídica e Pessoa Física - Herança
 * Criar uma Tabela de Entrega criando relacionamentos.
+
+## Segundo Desafio Oficina (Database - workshop)
+* Modelar um equema Relacional com todas os relacionamentos
+* Criar manualmente um script SQL com todas as tabelas e relacionamentos
+* Criar um script SQL para inserção de Dados
+* Criar Queries para o banco de dados workshop
